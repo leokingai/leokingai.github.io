@@ -252,6 +252,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leokingai.github.io/2018/07/18/Bayes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steve Shan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HUANG SHAN'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/18/Bayes/" itemprop="url">我对贝叶斯公式的简单分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T15:34:56+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/18/Bayes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/18/Bayes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Abstract：</strong><br>出了学校的门就没想过还会跟数学有任何关系，两年前Alpha-go围棋战胜李世石，看到到电视上说Alpha-go用了什么蒙特卡洛算法，贝叶斯公式，只觉得那是高大上的东西，这阵子人工智能火热起来，找了些资料看了下，发现无论是概率统计还是机器学习，贝叶斯都是迈不出去的一道坎，这里总结下自己的学习笔记，很多东西我自己理解的也不深，这里我尽量用浅显的方式去表达。</p>
+<p><strong>什么是概率学</strong></p>
+<p>生活中其实处处都是不确定的东西，明天是天晴还是下雨？这个项目成功的可能性有多少？隔壁老王明天会穿黑色还是蓝色衣服？好吧，职业病! 这个产品在亚马逊平台成为爆款的可能性会有多少？…  这些问题通常都认为是随机的，但是呢，事实上任何事情都是跟其他事情有千丝万缕的关系，概率论就是研究事情关联关系的一门学问，概率论是应用数学的 一个重要分支， 广泛应用于日常生活中，它起源于十七世纪，据说那些大神们开始研究概率的问题，却是来自 赌博的问题。事实上在Data Driven的今天，我认为它是商科必修的一门学科，</p>
+<p><strong>贝叶斯实列1：生病的几率</strong></p>
+<blockquote>
+<p>某人被发现有一些症状，所以作为预防措施，医生会采取血液样本，看看患者是否患有某种罕见致死的疾病。患者被告知检测出现阳性，病人显然非常担心。医生试图表明测试为阳性只是表明一定概率患有这种疾病。我想我们中的任何一个人都会非常担心。我会想要更多信息。如果我对这种罕见疾病检测呈现阳性，那么我的检测结果可能出错的概率是多少？我们正在研究两个不同的事件。事件A，患者患有此病。事件B，患者对该疾病检测呈阳性。</p>
+<p>医生告诉我们，每10,000人中只有一人患有这种疾病。医生还告诉患者，如果您有感染，那么您有99％的可能会检测出该病的阳性。未受感染的怎么样？ 2％的未感染患者仍将检测出该病的阳性。换句话说，2％的健康患者仍然会检测出现阳性。为此，让我们使用概率树。</p>
+<p><img src="https://raw.githubusercontent.com/leokingai/photo-for-blog/master/QQ%E5%9B%BE%E7%89%8720180718013852.png" alt="enter image description here"></p>
+<p>事件一，患者是否患有这种疾病？如果1个人得病，那么剩下的9999人不会得病。所以我们患病的分支的值为0.0001。我们健康的分支值为0.9999。然后我们可以继续前进到第二个事件。患者检测呈阳性吗？对于实际患有该疾病的患者，99％的检测阳性和1％的患有实际疾病的患者将检测为阴性。</p>
+<p>对于那些没有患病的患者，98％将检测为阴性，0.98，但2％将检测为阳性，0.02。这些是误报的人。让我们计算每个分支的价值。检测阳性的患病患者的可能性是0.0001*0.99，这给我们.000099。</p>
+<p>检测阴性的患病患者的价值是0.0001<em>0.01，这给了我们0.0000001, 这个微小的数字。检测阳性的健康患者的价值是0.999</em>0.98，这给了我们0.979902。测试阴性的健康患者的价值是0.999*0.02，这给我们0.019998。</p>
+<p>那么这是什么意思？在一个拥有100万人口的城市中，有100人实际上患有这种疾病。在这100个人中，99个将测试为阳性，一个人将进行阴性测试，而不是发现他们患有这种疾病。这也意味着在一百万人中，有999,900人不会患上这种疾病，但在那些没有患病的999,900人中，19,998人将得到一个阳性的测试结果。</p>
+<p>最后，回到我们的问题。如果我测试为阳性，我应该多担心？在100万人中，有20,097人将检测出阳性结果，但这些人中只有99人会患上这种疾病。因此，如果你测试为阳性，那么实际患病的可能性为0.5％。换句话说，每200名对该疾病检测呈阳性的人中，只有一人确实患有这种疾病。</p>
+<p>这比我们之前担心害怕的情况要好很多，不是吗？我们在这里所做的是我们称之为贝叶斯定理的基础。它不仅有趣，而且非常有用。</p>
+</blockquote>
+<h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>我们把上面例题中的  AA  变成样本(sample)  xx  , 把  BB  变成参数(parameter)  θθ, 我们便得到我们的贝叶斯公式：</p>
+<p>可以看出上面这个例子中，BB  事件的分布是离散的，所以在分母用的是求和符号  ∑∑  。那如果我们的参数  θθ  的分布是连续的呢？没错，那就要用积分，于是我们终于得到了真正的  <strong>贝叶斯公式</strong>  ：  </p>
+<p>\pi(\theta_i|x) = \frac{f(x|\theta_i)\pi(\theta_i)}{\sum_i f(x|\theta_i)\pi(\theta_i)}</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leokingai.github.io/2018/07/12/shopify/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -379,9 +527,9 @@
 <p>其他平台：Wanelo，BuzzFeed，Kik，Houzz等</p>
 <h2 id="Shopify的5大缺点："><a href="#Shopify的5大缺点：" class="headerlink" title="Shopify的5大缺点："></a><strong>Shopify的5大缺点：</strong></h2><h2 id="1-Shopify的交易费用："><a href="#1-Shopify的交易费用：" class="headerlink" title="1.Shopify的交易费用："></a><strong>1.Shopify的交易费用：</strong></h2><p>这个交易费我想是Shopify最致命的缺点，如果用Magento，Zencart来作为建站程序，完全没有交易费用，使用这2个购物车是100%免费的。Shopify除了每月的套餐费用外，Shopify还会向我们这些用户收取其计划的0.5％-2％的交易费用，除非您使用Shopify Payments为您的收款方式， 在这种情况下, 你所有交易费用都将被免除，但是我们国内很难做到采用Shopify Payment，开通Shopify Payment需要美国的身份证和该身份证对应的美国的银行账号进行验证。所以目前来说，我们暂时开通不了Shopify Payment，这就意味着我们每个月除了支付基础的月费外，如果还产生了交易，您还需要额外给Shopify将向您收取0.5-%2％的交易手续费。</p>
 <p>举个3个例子：</p>
-<p><em>假如我们使用29美金每月的Shopify基础方案，当月交易额3000美金。您要付给Shopify的费用为：29+3000*2%=29+60=<strong>89USD</strong></em></p>
-<p><em>假如我们使用79美金每月的Shopify方案，当月交易额10000美金。您要付给Shopify的费用为：79+10000*1%=79+100=<strong>179USD</strong></em></p>
-<p><em>假如我们使用179美金每月的高级Shopify方案，当月交易额50000美金。您要付给Shopify的费用为：179+50000*0.5%=179+250=<strong>429USD</strong></em></p>
+<p><em>假如我们使用29美金每月的Shopify基础方案，当月交易额3000美金。您要付给Shopify的费用为：29+3000<em>2%=29+60=<em>*89USD</em></em></em></p>
+<p><em>假如我们使用79美金每月的Shopify方案，当月交易额10000美金。您要付给Shopify的费用为：79+10000<em>1%=79+100=<em>*179USD</em></em></em></p>
+<p><em>假如我们使用179美金每月的高级Shopify方案，当月交易额50000美金。您要付给Shopify的费用为：179+50000<em>0.5%=179+250=<em>*429USD</em></em></em></p>
 <p>我们就说最后一个429USD的费用，显然这个看起来确实有点高了，但是我们计算一下我们的利润，我们假设我们的纯利润20%的话，我们每月也可以拿到10000美金的纯利润。这个收费也是非常透明的，每个月你的销售额一出来，你就可以计算出的你的交易费。还有你每月有50000美金的销售额，说明的网站访问量也增加了，相应的占用的资源也多了，比如宽带资源，而我们花429美金就可以保证我们网站的稳定性安全性，还有更重要的一点你都有10000美金的纯利润收入，你就不能花429美金买个安心呀，毕竟这个钱是花的值得的。</p>
 <h2 id="2-Shopify的App费用："><a href="#2-Shopify的App费用：" class="headerlink" title="2. Shopify的App费用："></a><strong>2. Shopify的App费用：</strong></h2><p>虽然Shopify为您提供超过1,400种应用程序来扩展您的在线商店的功能，但许多应用程序不是免费的，并且每月向您收取费用以供使用。显然这可能会让你的成本继续增加。例如，将Cross Sell 和Social Login集成到Shopify商店你每月需要额外增加9.9+1.49=11.39USD。</p>
 <p>举例说明一下这个APP费用，我们如何才能心甘情愿把这些费用掏给Shopify的开发者：</p>
@@ -644,7 +792,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -652,6 +800,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
