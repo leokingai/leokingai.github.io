@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="Everything began with a choice">
+<meta name="description" content="Abstract：时间线来到了2018，此时此刻关于亚马逊的运营已经到了一个瓶颈期，一方面大量的卖家涌入，导致竞争已经非常激烈，另外一方面平台对于操纵review的打击力度已经非常大，基本都是一撸到底的节奏。这就导致了选品的难度指数级的上升，要做到选品的准确性，数据挖掘，文本挖掘技术就是电子商务的必然的趋势，获取数据总是从创造一个高效的爬虫开始的。 一，为什么要自己开发爬虫 现在市面上的选品工具-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="title">
+<meta property="og:title" content="怎么做一个高效的亚马逊爬虫--我的爬虫笔记（一）">
 <meta property="og:url" content="https://leokingai.github.io/2018/08/05/amazon crawler/index.html">
 <meta property="og:site_name" content="HUANG SHAN&#39;S BLOG">
-<meta property="og:description" content="Everything began with a choice">
+<meta property="og:description" content="Abstract：时间线来到了2018，此时此刻关于亚马逊的运营已经到了一个瓶颈期，一方面大量的卖家涌入，导致竞争已经非常激烈，另外一方面平台对于操纵review的打击力度已经非常大，基本都是一撸到底的节奏。这就导致了选品的难度指数级的上升，要做到选品的准确性，数据挖掘，文本挖掘技术就是电子商务的必然的趋势，获取数据总是从创造一个高效的爬虫开始的。 一，为什么要自己开发爬虫 现在市面上的选品工具-">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-04T20:10:12.211Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/leokingai/photo-for-blog/master/scrapy_architecture.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leokingai/photo-for-blog/master/snapshot_amazon2csv.png">
+<meta property="og:updated_time" content="2018-08-04T20:32:42.785Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="title">
-<meta name="twitter:description" content="Everything began with a choice">
+<meta name="twitter:title" content="怎么做一个高效的亚马逊爬虫--我的爬虫笔记（一）">
+<meta name="twitter:description" content="Abstract：时间线来到了2018，此时此刻关于亚马逊的运营已经到了一个瓶颈期，一方面大量的卖家涌入，导致竞争已经非常激烈，另外一方面平台对于操纵review的打击力度已经非常大，基本都是一撸到底的节奏。这就导致了选品的难度指数级的上升，要做到选品的准确性，数据挖掘，文本挖掘技术就是电子商务的必然的趋势，获取数据总是从创造一个高效的爬虫开始的。 一，为什么要自己开发爬虫 现在市面上的选品工具-">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leokingai/photo-for-blog/master/scrapy_architecture.png">
 
 
 
@@ -125,7 +128,7 @@
 
 
 
-  <title>title | HUANG SHAN'S BLOG</title>
+  <title>怎么做一个高效的亚马逊爬虫--我的爬虫笔记（一） | HUANG SHAN'S BLOG</title>
   
 
 
@@ -269,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">title</h1>
+          <h1 class="post-title" itemprop="name headline">怎么做一个高效的亚马逊爬虫--我的爬虫笔记（一）</h1>
         
 
         <div class="post-meta">
@@ -335,7 +338,100 @@
       
 
       
-        
+        <p>Abstract：时间线来到了2018，此时此刻关于亚马逊的运营已经到了一个瓶颈期，一方面大量的卖家涌入，导致竞争已经非常激烈，另外一方面平台对于操纵review的打击力度已经非常大，基本都是一撸到底的节奏。这就导致了选品的难度指数级的上升，要做到选品的准确性，数据挖掘，文本挖掘技术就是电子商务的必然的趋势，获取数据总是从创造一个高效的爬虫开始的。</p>
+<p><strong>一，为什么要自己开发爬虫</strong><br> 现在市面上的选品工具-以Junglescout为代表都是用爬虫封装的。一方面确实是方便了选品，几年前用它可以很方便的开发产品，但是别忘了现在已经是2018，Junglescout 已经被很多卖家使用，如果跟别人用同样的方法获得的结果只能是大概相似，自己做的定制化爬虫是第一手数据，数据的专业度，新鲜度，可靠性都可以强过第三方工具。</p>
+<p><strong>二, 爬虫可以帮助亚马逊卖家得到什么</strong></p>
+<p>爬虫帮你获得如下数据：<br>（1）Avg Price平均价格<br>（2）Inventory库存数量<br>（3）Qty/Day 日销量<br>（4）Est.sales 月销量<br>（5）Revenue/Day 日营业额<br>（6）Rank 排名<br>（7）Sellers卖家数量<br>（8）Category 类目<br>（9）甚至亚马逊相关站外相关信息 爬虫可以获取更多数据……  通过这些数据整理完全可以帮助我们卖家少走很多弯路，避开很多坑，稳步提升listing排名。</p>
+<p><strong>三, 爬虫的作用</strong><br>1、 如果你爬虫爬出top1000和top10000就数据，那你的选品范围就增大了，然后按照你的资源资金和竞争情况等选取细分产品价格等进行开发。<br>2、通过爬虫数据，跟踪市场产品和竞争对手价格和库存评论等，用来做出快速反应。<br>3、利用爬虫信息，抓取亚马逊站外促销信息以及站内舆论信息等数据，抓取亚马逊类目变动情况。<br>4 、事实上爬虫只是数据挖掘的第一步，用爬虫去获取数据，怎么去寻找数据的关联，通过Python的Pandas模块分析数据，可以统计出平均数，标准差等信息，数据挖掘是通过大量的数据，通过数据的预处理，挖掘建模（分类，聚类，关联，预测），可以从网站的用户行为数据中挖掘出用户的潜在需求， 发现事物之间的规律。</p>
+<p><strong>四, 亚马逊的反爬虫机制</strong><br>1、服务器对爬虫程序会自动屏蔽。<br>2、登陆后才能访问，发现异常就封号 。<br>3、记录 IP，发现异常就封 IP 。<br>4、各种图灵测试，验证码是其中一种。</p>
+<p>针对亚马逊的爬虫机制，能采取的应对措施。<br>1、把爬虫程序伪装成浏览器，通过报头进行。<br>2、防屏蔽手段还有通过代理服务器，通过程序自动经过代理IP池用不同的IP登录。<br>3、针对一些图灵测试，主要是通过抓包分析，找到在HTML隐藏的网址，通过Post.Request请求</p>
+<p>亚马逊的爬虫程序最高效的还是用scrapy 框架去构建，scrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。 可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。</p>
+<p><img src="https://raw.githubusercontent.com/leokingai/photo-for-blog/master/scrapy_architecture.png" alt="enter image description here"></p>
+<p>Scrapy 的底层是Paython 的Urllib库，HTML源码的数据和网址的提取主要依靠正则表达式跟X-pass表达式。</p>
+<p>以下是我做的一个简单爬虫<br>Sourcing Url: <a href="https://www.amazon.com/Best-Sellers/zgbs/" target="_blank" rel="noopener">https://www.amazon.com/Best-Sellers/zgbs/</a></p>
+<p>sales ranker spider：</p>
+<pre><code>   import scrapy
+
+   from pydispatch import dispatcher
+
+   from scrapy import signals
+
+   from amazon.helper import Helper
+
+   from amazon.items import SalesRankingItem
+
+   from amazon.sql import RankingSql
+
+   class SalesRankingSpider(scrapy.Spider):
+
+   name = &#39;sales_ranking&#39;
+
+   custom_settings = {
+
+   &#39;LOG_LEVEL&#39;: &#39;ERROR&#39;,
+
+   &#39;LOG_FILE&#39;: &#39;sales_ranking.json&#39;,
+
+   &#39;LOG_ENABLED&#39;: True,
+
+   &#39;LOG_STDOUT&#39;: True
+
+   }
+
+   def __init__(self, **kwargs):
+
+   super().__init__(**kwargs)
+
+   self.items = []
+
+   dispatcher.connect(self.load_asin, signals.engine_started)
+
+   def start_requests(self):
+
+   for item in self.items:
+
+   yield scrapy.Request(&#39;https://www.amazon.com/dp/%s&#39; %
+   item[&#39;asin&#39;], self.parse, meta={&#39;item&#39;: item})
+
+   def parse(self, response):
+
+   product_detail =
+   response.xpath(&#39;//div/table&#39;).re(r&#39;#[0-9,]+(?:.*)in.*\(.*[Ss]ee
+   [Tt]op.*\)&#39;)
+
+   if len(product_detail) == 0:
+
+   product_detail = response.css(&#39;div
+   #SalesRank&#39;).re(r&#39;#[0-9,]+(?:.*)in.*\(.*[Ss]ee [Tt]op.*\)&#39;)
+
+   if len(product_detail) != 0:
+
+   item = SalesRankingItem()
+
+   key_rank_str = product_detail[0]
+
+   key_rank_tuple = Helper.get_rank_classify(key_rank_str)
+
+   item[&#39;rank&#39;] = Helper.get_num_split_comma(key_rank_tuple[0])
+
+   item[&#39;classify&#39;] = key_rank_tuple[1]
+
+   item[&#39;asin&#39;] = response.meta[&#39;item&#39;][&#39;asin&#39;]
+
+   yield item
+
+   else:
+
+   raise Exception(&#39;catch asin[%s] sales ranking error&#39; %
+   response.meta[&#39;item&#39;][&#39;asin&#39;])
+
+   def load_asin(self):
+
+   self.items = RankingSql.fetch_sales_ranking()
+</code></pre><p>关键字“Pathon” 输出：</p>
+<p><img src="https://raw.githubusercontent.com/leokingai/photo-for-blog/master/snapshot_amazon2csv.png" alt="enter image description here"></p>
+<p><strong>亚马逊的发展趋势</strong><br>2018年跨境电商这个行业已经有了颓势迹象，以往靠整合资源野蛮增长的年代已经过去了，虽然这个行业还不断的有新人涌进来，事实上，很明显在这种环境中能继续发展的小卖将来无非是两种，一种是深挖产品类目，有足够产品行业知识，并且有一定工厂资源的卖家，另外一种就是重视IT，有足够数据挖掘能力的卖家。</p>
+
       
     </div>
     
@@ -732,7 +828,7 @@
         var disqus_config = function () {
           this.page.url = 'https://leokingai.github.io/2018/08/05/amazon crawler/';
           this.page.identifier = '2018/08/05/amazon crawler/';
-          this.page.title = 'title';
+          this.page.title = '怎么做一个高效的亚马逊爬虫--我的爬虫笔记（一）';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
